@@ -30,20 +30,39 @@ export default async function handler(req, res) {
   await runMiddleware(req, res, cors);
   if (req.method !== 'POST') return res.status(200).json({ name: 'Hi AFS' });
 
-  const updateProduct = JSON.parse(req?.body);
+  // const updateProduct = JSON.parse(req?.body);
 
-  const url = `https://all-fresh-seafood.myshopify.com/admin/api/2023-01/products/8256097845481.json`;
+  // const url = `https://all-fresh-seafood.myshopify.com/admin/api/2023-01/products/8256097845481.json`;
   try {
-    const productResponse = await fetch(url, {
-      method: 'PUT',
+    // const productResponse = await fetch(url, {
+    //   method: 'PUT',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'X-Shopify-Access-Token': process.env.TOKEN,
+    //   },
+    //   body: JSON.stringify(updateProduct),
+    // });
+
+    const draftUrl = `https://all-fresh-seafood.myshopify.com/admin/api/2023-01/draft_orders.json`;
+
+    const draftOrder = await fetch(draftUrl, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'X-Shopify-Access-Token': process.env.TOKEN,
       },
-      body: JSON.stringify(updateProduct),
+      body: JSON.stringify({
+        draft_order: {
+          line_items: [
+            { title: 'Custom product', price: '20.00', quantity: 1 },
+          ],
+        },
+      }),
     });
 
-    res.status(200).json(await productResponse.json());
+    const orderRes = await draftOrder.json();
+
+    res.status(200).json(orderRes);
   } catch (error) {
     console.error(error);
     res.status(400).json(error);
