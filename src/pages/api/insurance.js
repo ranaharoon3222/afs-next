@@ -51,7 +51,7 @@ export default async function handler(req, res) {
       }
     });
 
-    res.status(200).json(findVariant);
+    res.status(200).json({ variant: findVariant, all: allVaraints.variants });
   } catch (error) {
     console.error(error);
     res.status(400).json(error);
