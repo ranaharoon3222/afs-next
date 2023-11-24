@@ -28,40 +28,9 @@ export const config = {
 
 export default async function handler(req, res) {
   await runMiddleware(req, res, cors);
-  if (req.method !== 'GET') return res.status(200).json({ name: 'Hi AFS' });
+  if (req.method !== 'POST') return res.status(200).json({ name: 'Hi AFS' });
 
-  //   const bodyData = JSON.parse(req?.body);
-
-  //   const customerReq = {
-  //     customer: {
-  //       first_name: bodyData.name,
-  //       email: bodyData.email,
-  //       verified_email: true,
-  //       password: bodyData.pass,
-  //       password_confirmation: bodyData.pass,
-  //       send_email_welcome: false,
-  //       metafields: [
-  //         {
-  //           key: 'dog_data',
-  //           namespace: 'custom',
-  //           value: JSON.stringify([bodyData.dogsData]),
-  //           value_type: 'json_string',
-  //         },
-  //       ],
-  //     },
-  //   };
-
-  const updateProduct = {
-    product: {
-      id: '8256097845481',
-      variants: [
-        {
-          id: '46061296550121',
-          price: '20',
-        },
-      ],
-    },
-  };
+  const updateProduct = JSON.parse(req?.body);
 
   const url = `https://all-fresh-seafood.myshopify.com/admin/api/2023-01/products/8256097845481.json`;
   try {
