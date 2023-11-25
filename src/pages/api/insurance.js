@@ -51,27 +51,23 @@ export default async function handler(req, res) {
         cartValue.value <= 100 &&
         item.price == 5.15
       ) {
-        console.log('1');
         return item;
       } else if (
         cartValue.value >= 101 &&
         cartValue.value <= 200 &&
         item.price == 5.99
       ) {
-        console.log('2');
         return item;
       } else if (
         cartValue.value >= 201 &&
         cartValue.value <= 400 &&
         item.price == 8.99
       ) {
-        console.log('3');
         return item;
       } else if (
         (cartValue.value / 100) * 3 <= item.price &&
         cartValue.value >= 401
       ) {
-        console.log('4', cartValue.value);
         return item;
       }
     });
