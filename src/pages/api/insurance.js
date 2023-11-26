@@ -49,25 +49,28 @@ export default async function handler(req, res) {
       if (
         cartValue.value >= 0 &&
         cartValue.value <= 100 &&
-        item.price == 5.15
+        item.sku == 'SHIPINSURE001'
       ) {
         return item;
       } else if (
         cartValue.value >= 101 &&
         cartValue.value <= 200 &&
-        item.price == 5.99
+        item.sku == 'SHIPINSURE002'
       ) {
         return item;
       } else if (
         cartValue.value >= 201 &&
-        cartValue.value <= 400 &&
-        item.price == 8.99
+        cartValue.value <= 300 &&
+        item.sku == 'SHIPINSURE003'
       ) {
         return item;
       } else if (
-        (cartValue.value / 100) * 3 <= item.price &&
-        cartValue.value >= 401
+        cartValue.value >= 301 &&
+        cartValue.value <= 499 &&
+        item.sku == 'SHIPINSURE004'
       ) {
+        return item;
+      } else if (cartValue.value >= 500 && item.sku == 'SHIPINSURE005') {
         return item;
       }
     });
