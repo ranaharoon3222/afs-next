@@ -31,6 +31,7 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(200).json({ name: 'Hi AFS' });
 
   const cartValue = JSON?.parse(req?.body);
+  const cartValueRound = Math.round(cartValue.value);
 
   try {
     const allVariantsUrl = `https://all-fresh-seafood.myshopify.com/admin/api/2023-01/products/8256097845481/variants.json`;
@@ -47,30 +48,30 @@ export default async function handler(req, res) {
 
     const findVariant = allVaraints.variants.find((item) => {
       if (
-        cartValue.value >= 0 &&
-        cartValue.value <= 100 &&
+        cartValueRound >= 0 &&
+        cartValueRound <= 100 &&
         item.sku == 'SHIPINSURE001'
       ) {
         return item;
       } else if (
-        cartValue.value >= 101 &&
-        cartValue.value <= 200 &&
+        cartValueRound >= 101 &&
+        cartValueRound <= 200 &&
         item.sku == 'SHIPINSURE002'
       ) {
         return item;
       } else if (
-        cartValue.value >= 201 &&
-        cartValue.value <= 300 &&
+        cartValueRound >= 201 &&
+        cartValueRound <= 300 &&
         item.sku == 'SHIPINSURE003'
       ) {
         return item;
       } else if (
-        cartValue.value >= 301 &&
-        cartValue.value <= 499 &&
+        cartValueRound >= 301 &&
+        cartValueRound <= 499 &&
         item.sku == 'SHIPINSURE004'
       ) {
         return item;
-      } else if (cartValue.value >= 500 && item.sku == 'SHIPINSURE005') {
+      } else if (cartValueRound >= 500 && item.sku == 'SHIPINSURE005') {
         return item;
       }
     });
